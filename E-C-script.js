@@ -87,84 +87,56 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 });
 
+// cart page Operation
 
-
-// cart list on next page code
 document.addEventListener('DOMContentLoaded', () => {
-  const cartContainer = document.querySelector('.cart-container');
-  const cartTotal = document.getElementById('cart-total');
-  const checkoutBtn = document.getElementById('checkout-btn');
+  // Select all the necessary DOM elements
+  const cartTable = document.querySelector('#cart table tbody');
+  const cartTotal = document.querySelector('#cart-total table');
 
-  function displayCartItems() {
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    cartContainer.innerHTML = '';
+  // Function to update subtotal for a product row
+  const updateSubtotal = (row) => {
+    const price = parseFloat(row.querySelector('td:nth-child(4)').innerText.replace('$', ''));
+    const quantity = parseInt(row.querySelector('input[type="number"]').value);
+    const subtotal = row.querySelector('td:nth-child(6)');
+    subtotal.innerText = `$${(price * quantity).toFixed(2)}`;
+  };
 
-    if (cart.length === 0) {
-      cartContainer.innerHTML = '<p>Your cart is empty.</p>';
-      return;
-    }
-
-    let total = 0;
-
-    cart.forEach((item, index) => {
-      const cartItem = document.createElement('div');
-      cartItem.classList.add('cart-item');
-
-      cartItem.innerHTML = `
-        <img src="${item.image}" alt="${item.name}">
-        <div>
-          <h4>${item.name}</h4>
-          <p>$${item.price}</p>
-          <p>Quantity: <input type="number" value="${item.quantity}" min="1" data-index="${index}" class="quantity-input"></p>
-          <button class="delete-btn" data-index="${index}">Delete</button>
-        </div>
-      `;
-
-      cartContainer.appendChild(cartItem);
-
-      total += parseFloat(item.price.replace('$', '')) * item.quantity;
+  // Function to update the total values in the cart
+  const updateCartTotals = () => {
+    let subtotal = 0;
+    cartTable.querySelectorAll('tr').forEach(row => {
+      const rowSubtotal = parseFloat(row.querySelector('td:nth-child(6)').innerText.replace('$', ''));
+      subtotal += rowSubtotal;
     });
+    
+    const shipping = 10.00;  // Fixed shipping cost
+    const total = subtotal + shipping;
 
-    cartTotal.innerText = total.toFixed(2);
-  }
+    cartTotal.querySelector('tr:nth-child(1) td:nth-child(2)').innerText = `$${subtotal.toFixed(2)}`;
+    cartTotal.querySelector('tr:nth-child(2) td:nth-child(2)').innerText = `$${shipping.toFixed(2)}`;
+    cartTotal.querySelector('tr:nth-child(3) td:nth-child(2)').innerText = `$${total.toFixed(2)}`;
+  };
 
-  function updateQuantity(index, quantity) {
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
-    if (cart[index]) {
-      cart[index].quantity = quantity;
-      localStorage.setItem('cart', JSON.stringify(cart));
-      displayCartItems();
-    }
-  }
-
-  function deleteProduct(index) {
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
-    if (cart[index]) {
-      cart.splice(index, 1);
-      localStorage.setItem('cart', JSON.stringify(cart));
-      displayCartItems();
-    }
-  }
-
-  cartContainer.addEventListener('change', (event) => {
-    if (event.target.classList.contains('quantity-input')) {
-      const index = event.target.dataset.index;
-      const quantity = parseInt(event.target.value);
-      updateQuantity(index, quantity);
+  // Event listener for changing quantity
+  cartTable.addEventListener('input', (event) => {
+    if (event.target.type === 'number') {
+      const row = event.target.closest('tr');
+      updateSubtotal(row);
+      updateCartTotals();
     }
   });
 
-  cartContainer.addEventListener('click', (event) => {
-    if (event.target.classList.contains('delete-btn')) {
-      const index = event.target.dataset.index;
-      deleteProduct(index);
+  // Event listener for removing items
+  cartTable.addEventListener('click', (event) => {
+    if (event.target.closest('.bxs-trash')) {
+      const row = event.target.closest('tr');
+      row.remove();
+      updateCartTotals();
     }
   });
 
-  checkoutBtn.addEventListener('click', () => {
-    alert(`Total amount: $${cartTotal.innerText}`);
-    // Add code to handle the checkout process (e.g., redirect to payment page)
-  });
-
-  displayCartItems();
+  // Initial calculation of cart totals
+  cartTable.querySelectorAll('tr').forEach(row => updateSubtotal(row));
+  updateCartTotals();
 });
