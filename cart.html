@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Shopping Cart</title>
+</head>
+<body>
+
+<!-- header -->
+<section id="header">
+  <a href="#"><img src="media/logo.png" class="logo" alt=""></a>
+  <div>
+    <ul id="navbar">
+      <li><a href="home.html">Home</a></li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li id="lg-bag"><a href="cart.html" class='bx bx-shopping-bag'></i></a></li>
+    </ul>
+  </div>
+</section>
+
+<!-- Cart Items -->
+<section class="cart-items">
+  <div class="container">
+    <h2>Your Shopping Cart</h2>
+    <div class="cart-list">
+      <!-- Sample Cart Item -->
+      <div class="cart-item">
+        <img src="media/products/f1.jpg" alt="Product Image">
+        <div class="item-details">
+          <h4>Carton Astronaust T-Shirts</h4>
+          <p>Price: $88</p>
+          <div class="quantity">
+            <label for="quantity">Quantity:</label>
+            <input type="number" id="quantity" name="quantity" value="1" min="1">
+          </div>
+        </div>
+        <div class="actions">
+          <button class="remove-btn">Remove</button>
+        </div>
+      </div>
+      <!-- End Sample Cart Item -->
+    </div>
+    <div class="cart-total">
+      <h3>Total: $88</h3>
+      <button class="checkout-btn">Proceed to Checkout</button>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <!-- Footer Content -->
+</footer>
+
+</body>
+</html>
