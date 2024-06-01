@@ -26,7 +26,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 
 
-// cart pop up code
+
+
 
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -87,56 +88,6 @@ document.addEventListener("DOMContentLoaded", function() {
   }
 });
 
-// cart page Operation
 
-document.addEventListener('DOMContentLoaded', () => {
-  // Select all the necessary DOM elements
-  const cartTable = document.querySelector('#cart table tbody');
-  const cartTotal = document.querySelector('#cart-total table');
 
-  // Function to update subtotal for a product row
-  const updateSubtotal = (row) => {
-    const price = parseFloat(row.querySelector('td:nth-child(4)').innerText.replace('$', ''));
-    const quantity = parseInt(row.querySelector('input[type="number"]').value);
-    const subtotal = row.querySelector('td:nth-child(6)');
-    subtotal.innerText = `$${(price * quantity).toFixed(2)}`;
-  };
 
-  // Function to update the total values in the cart
-  const updateCartTotals = () => {
-    let subtotal = 0;
-    cartTable.querySelectorAll('tr').forEach(row => {
-      const rowSubtotal = parseFloat(row.querySelector('td:nth-child(6)').innerText.replace('$', ''));
-      subtotal += rowSubtotal;
-    });
-    
-    const shipping = 10.00;  // Fixed shipping cost
-    const total = subtotal + shipping;
-
-    cartTotal.querySelector('tr:nth-child(1) td:nth-child(2)').innerText = `$${subtotal.toFixed(2)}`;
-    cartTotal.querySelector('tr:nth-child(2) td:nth-child(2)').innerText = `$${shipping.toFixed(2)}`;
-    cartTotal.querySelector('tr:nth-child(3) td:nth-child(2)').innerText = `$${total.toFixed(2)}`;
-  };
-
-  // Event listener for changing quantity
-  cartTable.addEventListener('input', (event) => {
-    if (event.target.type === 'number') {
-      const row = event.target.closest('tr');
-      updateSubtotal(row);
-      updateCartTotals();
-    }
-  });
-
-  // Event listener for removing items
-  cartTable.addEventListener('click', (event) => {
-    if (event.target.closest('.bxs-trash')) {
-      const row = event.target.closest('tr');
-      row.remove();
-      updateCartTotals();
-    }
-  });
-
-  // Initial calculation of cart totals
-  cartTable.querySelectorAll('tr').forEach(row => updateSubtotal(row));
-  updateCartTotals();
-});
