@@ -24,3 +24,48 @@ document.addEventListener('DOMContentLoaded', (event) => {
   });
 });
 
+
+
+
+// Wait for the DOM to fully load
+document.addEventListener("DOMContentLoaded", function() {
+  // Select all elements with the class 'cart'
+  const cartButtons = document.querySelectorAll('.cart');
+
+  // Loop through each button and add an event listener
+  cartButtons.forEach(button => {
+      button.addEventListener('click', function(event) {
+          // Prevent the default action (navigation)
+          event.preventDefault();
+
+          // Get the product element (parent of the button)
+          const product = button.closest('.pro');
+          
+          // Extract product details
+          const productImage = product.querySelector('img').src;
+          const productBrand = product.querySelector('span').innerText;
+          const productName = product.querySelector('h5').innerText;
+          const productPrice = product.querySelector('h4').innerText;
+
+          // Create a product object
+          const productDetails = {
+              image: productImage,
+              brand: productBrand,
+              name: productName,
+              price: productPrice
+          };
+
+          // Get the existing cart from local storage
+          let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+          // Add the new product to the cart
+          cart.push(productDetails);
+
+          // Save the updated cart back to local storage
+          localStorage.setItem('cart', JSON.stringify(cart));
+
+          // Optionally, provide feedback to the user
+          alert('Product added to cart!');
+      });
+  });
+});
