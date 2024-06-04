@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
-  <title>Ecommerce site - Cart</title>
+  <title>Cart</title>
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,7 +25,7 @@
       </ul>
     </div>
     <div id="mobile">
-      <a href="cart.html" class='bx bx-shopping-bag'></i></a>
+      <a href="cart.html" class='bx bx-shopping-bag'></a>
       <i id="bar" class='bx bx-menu menu'></i>
       <a href="#" id="close"><i class='bx bx-arrow-back back'></i></a>
     </div>
@@ -45,9 +45,7 @@
       </tr>
     </thead>
     <tbody>
-     
-     
-      
+      <!-- Cart items will be dynamically inserted here -->
     </tbody>
   </table>
   <div id="cart-total">
@@ -55,7 +53,7 @@
     <table>
       <tr>
         <td>Subtotal</td>
-        <td>$264.00</td>
+        <td id="subtotal">$0.00</td>
       </tr>
       <tr>
         <td>Shipping</td>
@@ -63,7 +61,7 @@
       </tr>
       <tr>
         <td>Total</td>
-        <td>$274.00</td>
+        <td id="total">$0.00</td>
       </tr>
     </table>
     <button class="normal">Proceed to checkout</button>
