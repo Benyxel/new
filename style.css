@@ -134,6 +134,49 @@ img {
   justify-content: center;
 }
 
+/* Checkout Page Styles */
+#checkout {
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 8px;
+}
+
+#checkout h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#checkout-form {
+  display: flex;
+  flex-direction: column;
+}
+
+#checkout-form label {
+  margin-top: 10px;
+}
+
+#checkout-form input {
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+#checkout-form .normal {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#checkout-form .normal:hover {
+  background-color: #555;
+}
 
 
 /* The cart Modal (background) */

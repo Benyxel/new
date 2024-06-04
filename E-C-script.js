@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 
 
-
+// add to cart code
 
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -103,6 +103,8 @@ document.addEventListener("DOMContentLoaded", function() {
   updateCartCount();
 });
 
+
+// products at the cart page code
 
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -181,6 +183,38 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 
+// check out code
+
+document.addEventListener('DOMContentLoaded', function() {
+  const checkoutForm = document.getElementById('checkout-form');
+
+  checkoutForm.addEventListener('submit', function(event) {
+    event.preventDefault();
+    
+    const formData = new FormData(checkoutForm);
+    const data = Object.fromEntries(formData.entries());
+    
+    console.log('Form Data:', data);
+    
+    // Here you can handle the form data, e.g., send it to your server
+    // You can use fetch or any other method to submit the data to your server
+    
+    alert('Order placed successfully!');
+    localStorage.removeItem('cart');  // Clear the cart after order placement
+    window.location.href = 'index.html';  // Redirect to home or order confirmation page
+  });
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+  // Select the "Proceed to checkout" button
+  const proceedToCheckoutButton = document.getElementById("proceed-to-checkout");
+
+  // Add a click event listener to the button
+  proceedToCheckoutButton.addEventListener("click", function() {
+      // Redirect to the checkout page
+      window.location.href = "checkout.html";
+  });
+});
 
 
 
